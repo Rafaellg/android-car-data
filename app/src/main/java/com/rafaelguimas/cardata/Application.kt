@@ -12,7 +12,7 @@ class Application : Application() {
         super.onCreate()
 
         startKoin {
-            listOf(
+            modules(
                 viewModelModule,
                 useCaseModule,
                 carTypeModule

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Car Data</string>
+    <string name="title_manufacturer">Manufacturer</string>
+    <string name="error_generic">Something went wrong. =/</string>
 </resources>

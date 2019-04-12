@@ -12,7 +12,7 @@ class CarTypeRepositoryImpl(
 ) : CarTypeRepository {
 
     override suspend fun getManufacturer(pageSize: Int, page: Int): Result<ManufacturerModel> {
-        val response = carTypeRemoteDataSource.getManufacturer(10, 1).await()
+        val response = carTypeRemoteDataSource.getManufacturer(pageSize, page).await()
 
         return if (response.wkda.isNotEmpty()) {
             Result.Success(response)
@@ -22,7 +22,7 @@ class CarTypeRepositoryImpl(
     }
 
     override suspend fun getMainTypes(manufacturer: Int, pageSize: Int, page: Int): Result<MainTypeModel> {
-        val response = carTypeRemoteDataSource.getMainTypes(1, 10, 1).await()
+        val response = carTypeRemoteDataSource.getMainTypes(manufacturer, pageSize, page).await()
 
         return if (response.wkda.isNotEmpty()) {
             Result.Success(response)
@@ -32,7 +32,7 @@ class CarTypeRepositoryImpl(
     }
 
     override suspend fun getBuiltDates(manufacturer: Int, mainType: Int): Result<BuiltDateModel> {
-        val response = carTypeRemoteDataSource.getBuiltDates(1, 1).await()
+        val response = carTypeRemoteDataSource.getBuiltDates(manufacturer, mainType).await()
 
         return if (response.wkda.isNotEmpty()) {
             Result.Success(response)

@@ -13,7 +13,6 @@ import java.io.IOException
 
 
 class CarTypeRemoteDataSource {
-
     companion object {
         private const val BASE_URL = "http://api-aws-eu-qa-1.auto1-test.com"
     }
@@ -29,11 +28,18 @@ class CarTypeRemoteDataSource {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val original = chain.request()
 
-                val url = original.url().newBuilder()
+                val url = original
+                    .url()
+                    .newBuilder()
                     .addQueryParameter("wa_key", "coding-puzzle-client-449cc9d")
                     .build()
 
-                val request = original.newBuilder().url(url).build()
+                val request = original
+                    .newBuilder()
+                    .header("Content-Type", "application/json")
+                    .url(url)
+                    .build()
+
                 return chain.proceed(request)
             }
         })
@@ -57,6 +63,4 @@ class CarTypeRemoteDataSource {
     suspend fun getBuiltDates(manufacturer: Int, mainType: Int) = withContext(Dispatchers.IO) {
         retrofit.create(CarTypesApi::class.java).getBuiltDates(manufacturer, mainType)
     }
-
-
 }
