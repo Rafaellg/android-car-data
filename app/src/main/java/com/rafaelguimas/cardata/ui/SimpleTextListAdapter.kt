@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rafaelguimas.cardata.R
 import kotlinx.android.synthetic.main.item_text.view.*
 
-class SimpleTextListAdapter : RecyclerView.Adapter<SimpleTextListAdapter.ViewHolder>() {
+class SimpleTextListAdapter(
+    private val onItemClick: (String) -> Unit
+) : RecyclerView.Adapter<SimpleTextListAdapter.ViewHolder>() {
 
     private val contentList = HashMap<String, String>()
 
@@ -30,12 +32,16 @@ class SimpleTextListAdapter : RecyclerView.Adapter<SimpleTextListAdapter.ViewHol
     override fun getItemCount() = contentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(contentList.toList()[position].second)
+        holder.bindView(contentList.toList()[position], onItemClick)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(model: String) {
-            itemView.tvItemText.text = model
+        fun bindView(item: Pair<String, String>, onItemClick: (String) -> Unit) {
+            itemView.tvItemText.text = item.second
+
+            itemView.setOnClickListener {
+                onItemClick(item.first)
+            }
         }
     }
 

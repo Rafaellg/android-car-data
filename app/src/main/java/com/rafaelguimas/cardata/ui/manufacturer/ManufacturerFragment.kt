@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.rafaelguimas.cardata.R
 import com.rafaelguimas.cardata.extension.changeVisibility
 import com.rafaelguimas.cardata.ui.SimpleTextListAdapter
@@ -17,7 +18,9 @@ class ManufacturerFragment : Fragment() {
 
     private val viewModel: ManufacturerViewModel by viewModel()
 
-    private val adapter = SimpleTextListAdapter()
+    private val adapter = SimpleTextListAdapter {
+        findNavController().navigate(ManufacturerFragmentDirections.actionManufacturerFragmentToManufacturerFragment2())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

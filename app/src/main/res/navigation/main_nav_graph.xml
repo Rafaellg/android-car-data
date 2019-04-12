@@ -8,5 +8,14 @@
         android:id="@+id/manufacturerFragment"
         android:name="com.rafaelguimas.cardata.ui.manufacturer.ManufacturerFragment"
         android:label="manufacturer_fragment"
+        tools:layout="@layout/manufacturer_fragment" >
+        <action
+            android:id="@+id/action_manufacturerFragment_to_manufacturerFragment2"
+            app:destination="@id/manufacturerFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/manufacturerFragment2"
+        android:name="com.rafaelguimas.cardata.ui.manufacturer.ManufacturerFragment"
+        android:label="manufacturer_fragment"
         tools:layout="@layout/manufacturer_fragment" />
 </navigation>

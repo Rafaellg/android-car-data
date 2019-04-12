@@ -33,7 +33,7 @@ class ManufacturerViewModel(
         launch {
             progressLiveData.value = true
 
-            val result = getManufacturerUseCase(20, 1)
+            val result = getManufacturerUseCase(20, 0)
 
             when (result) {
                 is Result.Success -> manufacturerModelLiveData.value = result.data
