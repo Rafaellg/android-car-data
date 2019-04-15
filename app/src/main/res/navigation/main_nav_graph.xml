@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/manufacturerFragment">
@@ -8,14 +9,74 @@
         android:id="@+id/manufacturerFragment"
         android:name="com.rafaelguimas.cardata.ui.manufacturer.ManufacturerFragment"
         android:label="manufacturer_fragment"
-        tools:layout="@layout/manufacturer_fragment" >
+        tools:layout="@layout/manufacturer_fragment">
         <action
-            android:id="@+id/action_manufacturerFragment_to_manufacturerFragment2"
-            app:destination="@id/manufacturerFragment2" />
+            android:id="@+id/action_manufacturerFragment_to_mainTypeFragment"
+            app:destination="@id/mainTypeFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/manufacturerFragment2"
-        android:name="com.rafaelguimas.cardata.ui.manufacturer.ManufacturerFragment"
-        android:label="manufacturer_fragment"
-        tools:layout="@layout/manufacturer_fragment" />
+        android:id="@+id/mainTypeFragment"
+        android:name="com.rafaelguimas.cardata.ui.main_type.MainTypeFragment"
+        android:label="main_type_fragment"
+        tools:layout="@layout/main_type_fragment">
+        <action
+            android:id="@+id/action_mainTypeFragment_to_builtDateFragment"
+            app:destination="@id/builtDateFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="manufacturer_id"
+            app:argType="string" />
+        <argument
+            android:name="manufacturer_value"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/builtDateFragment"
+        android:name="com.rafaelguimas.cardata.ui.built_date.BuiltDateFragment"
+        android:label="built_date_fragment"
+        tools:layout="@layout/built_date_fragment">
+        <action
+            android:id="@+id/action_builtDateFragment_to_summaryFragment"
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="manufacturer_id"
+            app:argType="string" />
+        <argument
+            android:name="main_type"
+            app:argType="string" />
+        <argument
+            android:name="manufacturer_value"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="com.rafaelguimas.cardata.ui.summary.SummaryFragment"
+        android:label="summary_fragment"
+        tools:layout="@layout/summary_fragment">
+        <argument
+            android:name="manufacturer"
+            app:argType="string" />
+        <argument
+            android:name="built_date"
+            app:argType="string" />
+        <argument
+            android:name="main_type"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_summaryFragment_to_manufacturerFragment"
+            app:destination="@id/manufacturerFragment"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

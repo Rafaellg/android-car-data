@@ -21,7 +21,7 @@ class CarTypeRepositoryImpl(
         }
     }
 
-    override suspend fun getMainTypes(manufacturer: Int, pageSize: Int, page: Int): Result<MainTypeModel> {
+    override suspend fun getMainTypes(manufacturer: String, pageSize: Int, page: Int): Result<MainTypeModel> {
         val response = carTypeRemoteDataSource.getMainTypes(manufacturer, pageSize, page).await()
 
         return if (response.wkda.isNotEmpty()) {
@@ -31,7 +31,7 @@ class CarTypeRepositoryImpl(
         }
     }
 
-    override suspend fun getBuiltDates(manufacturer: Int, mainType: Int): Result<BuiltDateModel> {
+    override suspend fun getBuiltDates(manufacturer: String, mainType: String): Result<BuiltDateModel> {
         val response = carTypeRemoteDataSource.getBuiltDates(manufacturer, mainType).await()
 
         return if (response.wkda.isNotEmpty()) {

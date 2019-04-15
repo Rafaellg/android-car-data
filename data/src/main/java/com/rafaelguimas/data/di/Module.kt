@@ -6,6 +6,6 @@ import com.rafaelguimas.domain.data.CarTypeRepository
 import org.koin.dsl.module
 
 val carTypeModule = module {
-//    single { CarTypeRepositoryImpl(get()) as CarTypeRepository }
-//    single { CarTypeRemoteDataSource() }
+    single { CarTypeRepositoryImpl(get()) as CarTypeRepository }
+    single { CarTypeRemoteDataSource() }
 }

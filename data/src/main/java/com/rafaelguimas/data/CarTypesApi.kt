@@ -16,14 +16,14 @@ interface CarTypesApi {
 
     @GET("/v1/car-types/main-types")
     fun getMainTypes(
-        @Query("manufacturer") manufacturer: Int,
+        @Query("manufacturer") manufacturer: String,
         @Query("pageSize") pageSize: Int,
         @Query("page") page: Int
     ):  Deferred<MainTypeModel>
 
     @GET("/v1/car-types/built-dates")
     fun getBuiltDates(
-        @Query("manufacturer") manufacturer: Int,
-        @Query("main-type") mainType: Int
+        @Query("manufacturer") manufacturer: String,
+        @Query("main-type") mainType: String
     ):  Deferred<BuiltDateModel>
 }

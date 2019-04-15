@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Car Data</string>
+
     <string name="title_manufacturer">Manufacturer</string>
     <string name="error_generic">Something went wrong. =/</string>
+    <string name="title_main_type">Model</string>
+    <string name="title_built_date">Built Date</string>
+    <string name="title_summary">Summary</string>
+
+    <string name="label_manufacturer_param">Manufacturer: %s</string>
+    <string name="label_main_type_param">MainType: %s</string>
+    <string name="label_built_date_param">BuiltDate: %s</string>
+
+    <string name="action_reset">Reset</string>
 </resources>

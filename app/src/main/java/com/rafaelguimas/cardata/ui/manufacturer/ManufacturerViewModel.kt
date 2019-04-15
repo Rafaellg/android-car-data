@@ -1,6 +1,7 @@
 package com.rafaelguimas.cardata.ui.manufacturer
 
 import androidx.lifecycle.*
+import com.rafaelguimas.cardata.Constants.PAGE_SIZE
 import com.rafaelguimas.domain.Result
 import com.rafaelguimas.domain.exception.Failure
 import com.rafaelguimas.domain.model.ManufacturerModel
@@ -33,7 +34,7 @@ class ManufacturerViewModel(
         launch {
             progressLiveData.value = true
 
-            val result = getManufacturerUseCase(20, 0)
+            val result = getManufacturerUseCase(PAGE_SIZE, 0)
 
             when (result) {
                 is Result.Success -> manufacturerModelLiveData.value = result.data

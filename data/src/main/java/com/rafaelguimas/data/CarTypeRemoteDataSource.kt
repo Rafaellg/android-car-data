@@ -56,11 +56,11 @@ class CarTypeRemoteDataSource {
         retrofit.create(CarTypesApi::class.java).getManufacturer(pageSize, page)
     }
 
-    suspend fun getMainTypes(manufacturer: Int, pageSize: Int, page: Int) = withContext(Dispatchers.IO) {
+    suspend fun getMainTypes(manufacturer: String, pageSize: Int, page: Int) = withContext(Dispatchers.IO) {
         retrofit.create(CarTypesApi::class.java).getMainTypes(manufacturer, pageSize, page)
     }
 
-    suspend fun getBuiltDates(manufacturer: Int, mainType: Int) = withContext(Dispatchers.IO) {
+    suspend fun getBuiltDates(manufacturer: String, mainType: String) = withContext(Dispatchers.IO) {
         retrofit.create(CarTypesApi::class.java).getBuiltDates(manufacturer, mainType)
     }
 }

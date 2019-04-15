@@ -8,7 +8,7 @@ import com.rafaelguimas.cardata.R
 import kotlinx.android.synthetic.main.item_text.view.*
 
 class SimpleTextListAdapter(
-    private val onItemClick: (String) -> Unit
+    private val onItemClick: (Pair<String, String>) -> Unit
 ) : RecyclerView.Adapter<SimpleTextListAdapter.ViewHolder>() {
 
     private val contentList = HashMap<String, String>()
@@ -36,11 +36,11 @@ class SimpleTextListAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(item: Pair<String, String>, onItemClick: (String) -> Unit) {
+        fun bindView(item: Pair<String, String>, onItemClick: (Pair<String, String>) -> Unit) {
             itemView.tvItemText.text = item.second
 
             itemView.setOnClickListener {
-                onItemClick(item.first)
+                onItemClick(item)
             }
         }
     }
