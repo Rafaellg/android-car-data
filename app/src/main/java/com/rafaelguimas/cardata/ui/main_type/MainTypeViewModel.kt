@@ -1,22 +1,19 @@
 package com.rafaelguimas.cardata.ui.main_type
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.rafaelguimas.cardata.Constants.PAGE_SIZE
-import com.rafaelguimas.domain.Result
 import com.rafaelguimas.domain.exception.Failure
-import com.rafaelguimas.domain.model.MainTypeModel
-import com.rafaelguimas.domain.use_case.GetMainTypeUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class MainTypeViewModel(
-    private val getMainTypeUseCase: GetMainTypeUseCase
-) : ViewModel(), CoroutineScope {
+class MainTypeViewModel : ViewModel(), CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -27,9 +24,8 @@ class MainTypeViewModel(
         job.cancel()
     }
 
-    val progressLiveData = MutableLiveData<Boolean>()
     val failureLiveData = MutableLiveData<Failure>()
-    val mainTypeModelLiveData = MutableLiveData<MainTypeModel>()
+    var mainTypePagedListLiveData: LiveData<PagedList<Pair<String, String>>> = MutableLiveData<PagedList<Pair<String, String>>>()
     val manufacturerLiveData = MediatorLiveData<String>()
     lateinit var manufacturerId: String
 
@@ -39,18 +35,12 @@ class MainTypeViewModel(
     }
 
     fun getMainTypes() {
-        launch {
-            progressLiveData.value = true
+        val pagedListConfig = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(PAGE_SIZE)
+            .build()
 
-            val result = getMainTypeUseCase(manufacturerId, PAGE_SIZE, 0)
-
-            when (result) {
-                is Result.Success -> mainTypeModelLiveData.value = result.data
-                is Result.Error -> failureLiveData.value = result.failure
-            }
-
-            progressLiveData.value = false
-        }
+        mainTypePagedListLiveData = LivePagedListBuilder(MainTypeDataSourceFactory(manufacturerId), pagedListConfig).build()
     }
 
 }

@@ -1,19 +1,20 @@
 package com.rafaelguimas.cardata.ui.manufacturer
 
-import androidx.lifecycle.*
-import com.rafaelguimas.cardata.Constants.PAGE_SIZE
-import com.rafaelguimas.domain.Result
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.rafaelguimas.cardata.Constants
 import com.rafaelguimas.domain.exception.Failure
-import com.rafaelguimas.domain.model.ManufacturerModel
-import com.rafaelguimas.domain.use_case.GetManufacturerUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class ManufacturerViewModel(
-    private val getManufacturerUseCase: GetManufacturerUseCase
+    manufacturerDataSourceFactory: ManufacturerDataSourceFactory
 ) : ViewModel(), LifecycleObserver, CoroutineScope {
 
     private val job = Job()
@@ -25,24 +26,16 @@ class ManufacturerViewModel(
         job.cancel()
     }
 
-    val progressLiveData = MutableLiveData<Boolean>()
     val failureLiveData = MutableLiveData<Failure>()
-    val manufacturerModelLiveData = MutableLiveData<ManufacturerModel>()
+    var manufacturerPagedListLiveData: LiveData<PagedList<Pair<String, String>>> = MutableLiveData<PagedList<Pair<String, String>>>()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        launch {
-            progressLiveData.value = true
+    init {
+        val pagedListConfig = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(Constants.PAGE_SIZE)
+            .build()
 
-            val result = getManufacturerUseCase(PAGE_SIZE, 0)
-
-            when (result) {
-                is Result.Success -> manufacturerModelLiveData.value = result.data
-                is Result.Error -> failureLiveData.value = result.failure
-            }
-
-            progressLiveData.value = false
-        }
+        manufacturerPagedListLiveData = LivePagedListBuilder(manufacturerDataSourceFactory, pagedListConfig).build()
     }
 
 }

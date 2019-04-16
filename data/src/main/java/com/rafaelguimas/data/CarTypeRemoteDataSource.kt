@@ -23,26 +23,23 @@ class CarTypeRemoteDataSource {
 
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
-        httpClient.addInterceptor(object : Interceptor {
-            @Throws(IOException::class)
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val original = chain.request()
+        httpClient.addInterceptor { chain ->
+            val original = chain.request()
 
-                val url = original
-                    .url()
-                    .newBuilder()
-                    .addQueryParameter("wa_key", "coding-puzzle-client-449cc9d")
-                    .build()
+            val url = original
+                .url()
+                .newBuilder()
+                .addQueryParameter("wa_key", "coding-puzzle-client-449cc9d")
+                .build()
 
-                val request = original
-                    .newBuilder()
-                    .header("Content-Type", "application/json")
-                    .url(url)
-                    .build()
+            val request = original
+                .newBuilder()
+                .header("Content-Type", "application/json")
+                .url(url)
+                .build()
 
-                return chain.proceed(request)
-            }
-        })
+            chain.proceed(request)
+        }
 
         Retrofit.Builder()
             .baseUrl(BASE_URL)

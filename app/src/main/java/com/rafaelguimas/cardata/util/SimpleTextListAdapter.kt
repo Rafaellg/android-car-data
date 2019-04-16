@@ -1,4 +1,4 @@
-package com.rafaelguimas.cardata.ui
+package com.rafaelguimas.cardata.util
 
 import android.view.LayoutInflater
 import android.view.View

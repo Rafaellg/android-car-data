@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rafaelguimas.cardata.R
 import com.rafaelguimas.cardata.extension.changeVisibility
-import com.rafaelguimas.cardata.ui.SimpleTextListAdapter
+import com.rafaelguimas.cardata.util.SimpleTextListAdapter
 import kotlinx.android.synthetic.main.built_date_fragment.*
 import org.jetbrains.anko.design.longSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,6 +43,10 @@ class BuiltDateFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(tbBuiltDate)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        tbBuiltDate.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
         viewModel.saveArgs(args)
         viewModel.getBuildDates()

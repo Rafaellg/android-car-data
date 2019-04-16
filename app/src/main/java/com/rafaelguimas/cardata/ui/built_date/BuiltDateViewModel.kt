@@ -44,9 +44,7 @@ class BuiltDateViewModel(
             progressLiveData.value = true
 
             mainTypeLiveData.value?.let { mainType ->
-                val result = getBuiltDateUseCase(manufacturerId, mainType)
-
-                when (result) {
+                when (val result = getBuiltDateUseCase(manufacturerId, mainType)) {
                     is Result.Success -> builtDateModelLiveData.value = result.data
                     is Result.Error -> failureLiveData.value = result.failure
                 }

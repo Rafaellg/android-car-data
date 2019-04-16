@@ -1,6 +1,7 @@
 package com.rafaelguimas.cardata
 
 import android.app.Application
+import com.rafaelguimas.cardata.di.dataSourceModule
 import com.rafaelguimas.cardata.di.useCaseModule
 import com.rafaelguimas.cardata.di.viewModelModule
 import com.rafaelguimas.data.di.carTypeModule
@@ -15,7 +16,8 @@ class Application : Application() {
             modules(
                 viewModelModule,
                 useCaseModule,
-                carTypeModule
+                carTypeModule,
+                dataSourceModule
             )
         }
     }
